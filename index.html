@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="></script>
+  <title>IRCTC Automate</title>
+</head>
+
+<body>
+  <div class="verticalLayout">
+    <div id="messageToast"></div>
+    <div class="apart  leftMargin1rem rightMargin1rem">
+      <h2>IRCTC Automate</h2>
+      <div>
+        <p id="timeUI"></p>
+      </div>
+      <div class="noEffect">
+        <input type="button" id="addItinerary" value="Add Booking" class="green-rounded-button" />
+        <input type="button" id="review" value="Review" class="leftMarginHalfrem transparentButton" />
+        <input type="button" id="aboutMe" value="About Me" class="leftMarginHalfrem transparentButton" />
+        <button id="openInTab" class="leftMarginHalfrem"
+          style="background: none; border: none; padding: 0; cursor: pointer;">
+          <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="24.000000pt" height="24.000000pt"
+            viewBox="0 0 30.000000 30.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,30.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+              <path d="M40 225 c0 -19 5 -35 10 -35 6 0 10 8 10 17 0 14 4 12 25 -7 32 -31
+                46 -17 15 15 -19 21 -21 25 -7 25 9 0 17 5 17 10 0 6 -16 10 -35 10 -33 0 -35
+                -2 -35 -35z" />
+              <path d="M190 250 c0 -5 8 -10 17 -10 14 0 12 -4 -7 -25 -31 -32 -17 -46 15
+                -15 21 19 25 21 25 7 0 -9 5 -17 10 -17 6 0 10 16 10 35 0 33 -2 35 -35 35
+                -19 0 -35 -4 -35 -10z" />
+              <path d="M82 98 c-19 -19 -22 -20 -22 -5 0 9 -4 17 -10 17 -5 0 -10 -16 -10
+                -35 0 -33 2 -35 35 -35 19 0 35 5 35 10 0 6 -8 10 -17 10 -14 0 -13 3 5 23 38
+                40 23 53 -16 15z" />
+              <path d="M180 113 c0 -4 10 -17 22 -30 18 -20 19 -23 5 -23 -9 0 -17 -4 -17
+                -10 0 -5 16 -10 35 -10 33 0 35 2 35 35 0 19 -4 35 -10 35 -5 0 -10 -8 -10
+                -17 0 -14 -3 -13 -23 5 -24 22 -37 28 -37 15z" />
+            </g>
+          </svg>
+
+        </button>
+      </div>
+    </div>
+    <div class="horizontalLayout divborder">
+      <div class="left-section">
+        <h2>Bookings</h2>
+        <ul id="itineraries" />
+      </div>
+
+      <div class="right-section">
+        <div class="horizontalLayout apart">
+          <h2>Booking Details</h2>
+          <input type="button" id="delete" value="delete" class="red-rounded-button">
+        </div>
+        <div id="messageContainer" class="vCenter">
+          <p class="hCenter">No booking created yet. Please add the booking to proceed further.</p>
+          <div class="hCenter">
+            <input type="button" id="addItineraryCenter" value="Add Booking" class="green-rounded-button" />
+          </div>
+        </div>
+        <div id="editorContainer">
+          <form action="" disabled>
+            <p style="color: red;">We recommend using the manual login method, leaving the username and password blank.
+            </p>
+            <div class="form-row">
+              <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+              </div>
+              <div>
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password">
+              </div>
+            </div>
+            <div id="googleApiKeyContainer">
+              <div class="horizontalLayout">
+                <label for="googleApiKey">Google LLM API Key:</label>
+                <button id="createKeyDoc" style="background: none; border: none; cursor: pointer;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </button>
+                <p style="color: red;">Not recommended</p>
+              </div>
+              <input type="text" id="googleApiKey" name="googleApiKey">
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="source">From Station:</label>
+                <input type="text" id="source" name="source">
+              </div>
+              <div>
+                <label for="destination">To Station:</label>
+                <input type="text" id="destination" name="destination">
+              </div>
+            </div>
+
+            <div class="horizontalLayout">
+              <label for="autoSearchClick" class="smallMarginBottom smallMarginTop">Auto Click Search Button:</label>
+              <input type="checkbox" name="autoSearchClick" id="autoSearchClick">
+            </div>
+
+            <div>
+              <label for="date">Departure Date:</label>
+              <input type="date" id="date" name="date">
+            </div>
+
+            <label for="quota">Quota:</label>
+            <select id="quota" name="quota">
+              <option value="">None</option>
+              <option value="TATKAL">TATKAL</option>
+              <option value="PREMIUM TATKAL">PREMIUM TATKAL</option>
+              <option value="GENERAL">GENERAL</option>
+              <option value="LADIES">LADIES</option>
+              <option value="LOWER BERTH/Sr. CITIZEN">LOWER BERTH/Sr. CITIZEN</option>
+              <option value="PERSON WITH DISABILITY">PERSON WITH DISABILITY</option>
+              <option value="DUTY PASS">DUTY PASS</option>
+            </select>
+
+            <label for="train">Train Number:</label>
+            <input type="text" id="train" name="train">
+
+            <label for="seatType">Seat Type:</label>
+            <select id="seatType" name="seatType">
+              <option value="">None</option>
+              <option value="AC 3 Tier (3A)">AC 3 Tier (3A)</option>
+              <option value="AC 2 Tier (2A)">AC 2 Tier (2A)</option>
+              <option value="AC First Class (1A)">AC First Class (1A)</option>
+              <option value="AC Chair car (CC)">AC Chair car (CC)</option>
+              <option value="Exec. Chair Car (EC)">Exec. Chair Car (EC)</option>
+              <option value="AC 3 Economy (3E)">AC 3 Economy (3E)</option>
+              <option value="First Class (FC)">First Class (FC)</option>
+              <option value="Sleeper (SL)">Sleeper (SL)</option>
+              <option value="Second Sitting (2S)">Second Sitting (2S)</option>
+              <option value="Anubhuti Class (EA)">Anubhuti Class (EA)</option>
+              <option value="Vistadome AC (EV)">Vistadome AC (EV)</option>
+              <option value="Vistadome Chair Car (VC)">Vistadome Chair Car (VC)</option>
+              <option value="Vistadome Non AC (VS)">Vistadome Non AC (VS)</option>
+            </select>
+
+            <label for="paymentMode">Payment Mode:</label>
+            <select id="paymentMode" name="paymentMode">
+              <option value="null" data-option="0">None</option>
+              <option value="Pay through Credit & Debit Cards / Net Banking / Wallets / EMI / Rewards and Others"
+                data-option="1">Pay through Credit & Debit Cards / Net Banking / Wallets / EMI / Rewards and Others
+              </option>
+              <option value="Pay through BHIM/UPI" data-option="2">Pay through BHIM/UPI</option>
+            </select>
+
+            <label for="paymentType">Payment Type:</label>
+            <select id="paymentType" name="paymentType">
+              <option value="null" data-parent-option="0" data-option="0">None</option>
+
+              <option value="null" data-parent-option="1" data-option="1">None</option>
+              <option value="IRCTC iPay (Credit Card/Debit Card/UPI)" data-parent-option="1" data-option="2">IRCTC iPay
+                (Credit Card/Debit Card/UPI)</option>
+              <option value="IRCTC eWallet" data-parent-option="1" data-option="3">IRCTC eWallet</option>
+              <option value="Multiple Payment Service" data-parent-option="1" data-option="4">Multiple Payment Service
+              </option>
+              <option value="Netbanking" data-parent-option="1" data-option="5">Netbanking</option>
+              <option value="Payment Gateway / Credit Card / Debit Card" data-parent-option="1" data-option="6">Payment
+                Gateway / Credit Card / Debit Card</option>
+              <option value="Wallets / Cash Card" data-parent-option="1" data-option="7">Wallets / Cash Card</option>
+              <option value="EMI" data-parent-option="1" data-option="8">EMI</option>
+              <option value="Loyality Redemption Booking" data-parent-option="1" data-option="9">Loyality Redemption
+                Booking</option>
+
+              <option value="null" data-parent-option="2" data-option="10">None</option>
+              <option value="IRCTC iPay (Credit Card/Debit Card/UPI)" data-parent-option="2" data-option="11">IRCTC iPay
+                (Credit Card/Debit Card/UPI)</option>
+              <option value="Multiple Payment Service" data-parent-option="2" data-option="12">Multiple Payment Service
+              </option>
+              <option value="BHIM/ UPI/ USSD" data-parent-option="2" data-option="13">BHIM/ UPI/ USSD</option>
+            </select>
+
+            <label for="paymentGateway">Payment Gateway:</label>
+            <select id="paymentGateway" name="paymentGateway">
+              <option value="null" data-parent-option="0">None</option>
+
+              <option value="null" data-parent-option="1">None</option>
+
+              <option value="null" data-parent-option="2">None</option>
+              <option value="Credit cards/Debit cards/Netbanking/UPI (Powered by IRCTC)" data-parent-option="2">Credit
+                cards/Debit cards/Netbanking/UPI (Powered by IRCTC)</option>
+
+              <option value="null" data-parent-option="3">None</option>
+              <option value="Note: An amount of ₹ 10 + Applicable GST will be deducted as IRCTC eWallet service charge."
+                data-parent-option="3">Note: An amount of ₹ 10 + Applicable GST will be deducted as IRCTC eWallet
+                service charge.</option>
+
+              <option value="null" data-parent-option="4">None</option>
+              <option value="Credit & Debit cards / Net Banking / Wallet / UPI (Powered by Paytm)"
+                data-parent-option="4">Credit & Debit cards / Net Banking / Wallet / UPI (Powered by Paytm)</option>
+              <option value="Credit & Debit cards /Net Banking/Wallets/UPI/ International Cards (Powered by PayU)"
+                data-parent-option="4">Credit & Debit cards /Net Banking/Wallets/UPI/ International Cards (Powered by
+                PayU)</option>
+              <option value="Credit & Debit cards / Net Banking / UPI (Powered by Razorpay)" data-parent-option="4">
+                Credit & Debit cards / Net Banking / UPI (Powered by Razorpay)</option>
+              <option value="Credit & Debit cards / Wallet / UPI (Powered by PhonePe)" data-parent-option="4">Credit &
+                Debit cards / Wallet / UPI (Powered by PhonePe)</option>
+              <option value="Amazon Pay Wallet" data-parent-option="4">Amazon Pay Wallet</option>
+              <option value="International/Domestic Credit/Debit Cards (Powered by Plural)" data-parent-option="4">
+                International/Domestic Credit/Debit Cards (Powered by Plural)</option>
+
+              <option value="null" data-parent-option="5">None</option>
+              <option value="State Bank of India" data-parent-option="5">State Bank of India</option>
+              <option value="Federal Bank" data-parent-option="5">Federal Bank</option>
+              <option value="Indian Bank" data-parent-option="5">Indian Bank</option>
+              <option value="Punjab National Bank" data-parent-option="5">Punjab National Bank</option>
+              <option value="Karur Vysya Bank" data-parent-option="5">Karur Vysya Bank</option>
+              <option value="Karnataka Bank" data-parent-option="5">Karnataka Bank</option>
+              <option value="ICICI Bank" data-parent-option="5">ICICI Bank</option>
+              <option value="Kotak Mahindra Bank" data-parent-option="5">Kotak Mahindra Bank</option>
+              <option value="Nepal SBI Bank Ltd." data-parent-option="5">Nepal SBI Bank Ltd.</option>
+              <option value="South Indian Bank" data-parent-option="5">South Indian Bank</option>
+              <option value="City Union Bank" data-parent-option="5">City Union Bank</option>
+              <option value="Canara Bank" data-parent-option="5">Canara Bank</option>
+              <option value="Airtel Payments Bank" data-parent-option="5">Airtel Payments Bank</option>
+              <option value="IDFC FIRST Bank" data-parent-option="5">IDFC FIRST Bank</option>
+
+              <option value="null" data-parent-option="6">None</option>
+              <option value="Visa/Master Card(Powered By HDFC BANK)" data-parent-option="6">Visa/Master Card(Powered By
+                HDFC BANK)</option>
+              <option value="American Express" data-parent-option="6">American Express</option>
+              <option value="Credit cards / Debit cards (Powered by NTT Data)" data-parent-option="6">Credit cards /
+                Debit cards (Powered by NTT Data)</option>
+              <option value="Visa/Master Card(Powered By ICICI BANK)" data-parent-option="6">Visa/Master Card(Powered By
+                ICICI BANK)</option>
+              <option value="Visa/Master/RuPay Card (Powered by KOTAK BANK)" data-parent-option="6">Visa/Master/RuPay
+                Card (Powered by KOTAK BANK)</option>
+
+              <option value="null" data-parent-option="7">None</option>
+              <option value="Mobikwik Wallet" data-parent-option="7">Mobikwik Wallet</option>
+              <option value="Airtel Money" data-parent-option="7">Airtel Money</option>
+              <option value="Amazon Pay Balance" data-parent-option="7">Amazon Pay Balance</option>
+
+              <option value="null" data-parent-option="8">None</option>
+              <option value="CASHe EMI" data-parent-option="8">CASHe EMI</option>
+              <option value="Bajaj Finserv EMI" data-parent-option="8">Bajaj Finserv EMI</option>
+
+              <option value="null" data-parent-option="9">None</option>
+
+              <option value="null" data-parent-option="10">None</option>
+
+              <option value="null" data-parent-option="11">None</option>
+              <option value="Credit cards/Debit cards/Netbanking/UPI (Powered by IRCTC)" data-parent-option="11">Credit
+                cards/Debit cards/Netbanking/UPI (Powered by IRCTC)</option>
+
+              <option value="null" data-parent-option="12">None</option>
+              <option value="Credit & Debit cards / Net Banking / Wallet / UPI (Powered by Paytm)"
+                data-parent-option="12">Credit & Debit cards / Net Banking / Wallet / UPI (Powered by Paytm)</option>
+              <option value="Credit & Debit cards /Net Banking/Wallets/UPI/ International Cards (Powered by PayU)"
+                data-parent-option="12">Credit & Debit cards /Net Banking/Wallets/UPI/ International Cards (Powered by
+                PayU)</option>
+              <option value="Credit & Debit cards / Net Banking / UPI (Powered by Razorpay)" data-parent-option="12">
+                Credit & Debit cards / Net Banking / UPI (Powered by Razorpay)</option>
+              <option value="Credit & Debit cards / Wallet / UPI (Powered by PhonePe)" data-parent-option="12">Credit &
+                Debit cards / Wallet / UPI (Powered by PhonePe)</option>
+
+              <option value="null" data-parent-option="13">None</option>
+              <option value="Pay using BHIM (Powered by PAYTM ) also accepts UPI" data-parent-option="13">Pay using BHIM
+                (Powered by PAYTM ) also accepts UPI</option>
+              <option value="Amazon Pay UPI" data-parent-option="13">Amazon Pay UPI</option>
+            </select>
+            <div class="form-row">
+              <div>
+                <label for="mobile">Mobile:</label>
+                <input type="text" id="mobile" name="mobile">
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+              </div>
+            </div>
+            <div class="horizontalLayout">
+              <label for="ifConfirm" class="smallMarginBottom smallMarginTop">Book only if confirm berths are
+                allotted:</label>
+              <input type="checkbox" name="ifConfirm" id="ifConfirm">
+            </div>
+            <div class="horizontalLayout apart">
+              <label for="addPassengerButton">Passenger Details:</label>
+              <button id="addPassengerButton" class="leftMargin1rem">Add</button>
+            </div>
+            <div id="passengerContainer" class="verticalLayout topMarginHalfRem">
+            </div>
+          </form>
+        </div>
+      </div>
+      <script type="text/javascript" src="index.js"></script>
+    </div>
+</body>
+
+</html>
